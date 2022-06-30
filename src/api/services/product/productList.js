@@ -9,61 +9,55 @@ const {
   CaseModel,
   KeyboardMouseModel,
   DisplayModel,
-} = require("../models/productCategory");
+} = require('../../models/productCategory');
 
-const getProductList = async (req, res) => {
-  switch (req.params.category) {
-    case "cpu":
+module.exports = async (category) => {
+  let result;
+  switch (category) {
+    case 'cpu':
       const cpuIntel = await CpuIntelModel.find({});
       const cpuAMD = await CpuAmdModel.find({});
-      res.json({ cpuIntel, cpuAMD });
-      res.end();
+      result = { cpuIntel, cpuAMD };
       break;
 
-    case "main-board":
+    case 'main-board':
       const mainAMD = await MainboardAmdModel.find({});
       const mainINTEL = await MainboardIntelModel.find({});
-      res.json({ mainINTEL, mainAMD });
-      res.end();
+      result = { mainINTEL, mainAMD };
       break;
 
-    case "ram":
+    case 'ram':
       const ram = await RamModel.find({});
-      res.json({ ram });
-      res.end();
+      result = { ram };
       break;
 
-    case "hard-drive":
+    case 'hard-drive':
       const hardDrive = await DiskModel.find({});
       res.json({ hardDrive });
       break;
 
-    case "psu":
+    case 'psu':
       const psu = await PsuModel.find({});
-      res.json({ psu });
-      res.end();
+      result = { psu };
       break;
 
-    case "case":
+    case 'case':
       const Case = await CaseModel.find({});
-      res.json({ Case });
-      res.end();
+      result = { Case };
       break;
 
-    case "keyboard-mouse":
+    case 'keyboard-mouse':
       const keyboardMouse = await KeyboardMouseModel.find({});
-      res.json({ keyboardMouse });
-      res.end();
+      result = { keyboardMouse };
       break;
 
-    case "display":
+    case 'display':
       const display = await DisplayModel.find({});
-      res.json({ display });
-      res.end();
+      result = { display };
       break;
 
     default:
-      res.status(400).send("Bad Request");
+      result = { msg: 'Bad Request' };
   }
+  return result;
 };
-module.exports = { getProductList };

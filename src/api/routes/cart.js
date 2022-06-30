@@ -9,8 +9,8 @@ const {
 } = require('../controllers/cart.js');
 const { verifyToken } = require('../middlewares/verifyToken.js');
 
-router.route('/').post(verifyToken, addToCart);
-router.route('/').get(verifyToken, reviewCart);
-router.route('/').patch(verifyToken, changeQuantity);
-router.route('/:productid').delete(verifyToken, deleteProduct);
+router.route('/add').post(verifyToken, addToCart);
+router.route('/review').get(verifyToken, reviewCart);
+router.route('/changequantity').post(verifyToken, changeQuantity);
+router.route('/deleteproduct/:productid').delete(verifyToken, deleteProduct);
 module.exports = router;
