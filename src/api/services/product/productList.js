@@ -1,9 +1,9 @@
 const {
-  CpuAmdModel,
-  CpuIntelModel,
+  CpuModel,
   MainboardAmdModel,
   MainboardIntelModel,
   RamModel,
+  VgaModel,
   DiskModel,
   PsuModel,
   CaseModel,
@@ -11,49 +11,64 @@ const {
   DisplayModel,
 } = require('../../models/productCategory');
 
+const tryAndCatch = async (model) => {
+  let result;
+  try {
+    result = await model.find({}).sort('price');
+  } catch (err) {
+    result = { msg: err };
+  }
+  return result;
+};
+
 module.exports = async (category) => {
   let result;
   switch (category) {
     case 'cpu':
-      const cpuIntel = await CpuIntelModel.find({});
-      const cpuAMD = await CpuAmdModel.find({});
-      result = { cpuIntel, cpuAMD };
+      const cpu = await tryAndCatch(CpuModel);
+      result = cpu;
       break;
 
     case 'main-board':
-      const mainAMD = await MainboardAmdModel.find({});
-      const mainINTEL = await MainboardIntelModel.find({});
-      result = { mainINTEL, mainAMD };
+      const mainAMD = await tryAndCatch(MainboardAmdModel);
+      const mainINTEL = await tryAndCatch(MainboardIntelModel);
+      const main = [].concat(mainINTEL, mainAMD);
+      result = main;
       break;
 
     case 'ram':
-      const ram = await RamModel.find({});
-      result = { ram };
+      const ram = await tryAndCatch(RamModel);
+      result = ram;
+      break;
+
+    case 'vga':
+      const vga = await tryAndCatch(VgaModel);
+      result = vga;
       break;
 
     case 'hard-drive':
-      const hardDrive = await DiskModel.find({});
-      res.json({ hardDrive });
+      const hardDrive = await tryAndCatch(DiskModel);
+      result = hardDrive;
       break;
 
     case 'psu':
-      const psu = await PsuModel.find({});
-      result = { psu };
+      const psu = await tryAndCatch(PsuModel);
+      result = psu;
       break;
 
     case 'case':
-      const Case = await CaseModel.find({});
-      result = { Case };
+      const Case = await tryAndCatch(CaseModel);
+      result = Case;
       break;
 
     case 'keyboard-mouse':
-      const keyboardMouse = await KeyboardMouseModel.find({});
-      result = { keyboardMouse };
+      const keyboardMouse = await tryAndCatch(KeyboardMouseModel);
+      result = keyboardMouse;
       break;
 
     case 'display':
-      const display = await DisplayModel.find({});
-      result = { display };
+      const display = await tryAndCatch(DisplayModel);
+      result = display;
       break;
 
     default:
