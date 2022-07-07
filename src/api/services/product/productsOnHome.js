@@ -9,7 +9,7 @@ module.exports = async () => {
   try {
     discountProductList = await DiscountProductsModel.find({}).populate(
       'product',
-      ['name', 'price', 'discount price', 'img'],
+      ['_id', 'name', 'price', 'discount price', 'img'],
     );
   } catch (error) {
     discountProductList = { msg: error };
@@ -17,6 +17,7 @@ module.exports = async () => {
   }
   try {
     newProductList = await NewProductsModel.find({}).populate('product', [
+      '_id',
       'name',
       'price',
       'discount price',
@@ -28,7 +29,7 @@ module.exports = async () => {
   try {
     bestSellProductList = await BestSellProductsModel.find({}).populate(
       'product',
-      ['name', 'price', 'discount price', 'img'],
+      ['_id', 'name', 'price', 'discount price', 'img'],
     );
   } catch (error) {
     bestSellProductList = { msg: error };

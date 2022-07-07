@@ -10,61 +10,63 @@ const {
   DisplayModel,
 } = require('../../models/productCategory');
 
-const tryAndCatch = async (model) => {
+const tryAndCatch = async (model, id) => {
   let result;
+  console.log(id);
+  console.log(model);
   try {
-    result = await model.find({}).sort('price');
+    result = await model.findById(id);
   } catch (err) {
     result = { msg: err };
   }
   return result;
 };
 
-module.exports = async (category) => {
+module.exports = async (category, id) => {
   let result;
   switch (category) {
     case 'cpu':
-      const cpu = await tryAndCatch(CpuModel);
+      const cpu = await tryAndCatch(CpuModel, id);
       result = cpu;
       break;
 
-    case 'main-board':
-      const main = await tryAndCatch(MainboardModel);
+    case 'main':
+      const main = await tryAndCatch(MainboardModel, id);
       result = main;
       break;
 
     case 'ram':
-      const ram = await tryAndCatch(RamModel);
+      const ram = await tryAndCatch(RamModel, id);
       result = ram;
       break;
 
     case 'vga':
-      const vga = await tryAndCatch(VgaModel);
+      const vga = await tryAndCatch(VgaModel, id);
       result = vga;
       break;
 
-    case 'hard-drive':
-      const hardDrive = await tryAndCatch(DiskModel);
+    case 'disk':
+      const hardDrive = await tryAndCatch(DiskModel, id);
       result = hardDrive;
       break;
 
     case 'psu':
-      const psu = await tryAndCatch(PsuModel);
+      const psu = await tryAndCatch(PsuModel, id);
       result = psu;
       break;
 
     case 'case':
-      const Case = await tryAndCatch(CaseModel);
+      const Case = await tryAndCatch(CaseModel, id);
       result = Case;
       break;
 
-    case 'keyboard-mouse':
-      const keyboardMouse = await tryAndCatch(KeyboardMouseModel);
+    case 'keyboardmouse':
+      const keyboardMouse = await tryAndCatch(KeyboardMouseModel, id);
       result = keyboardMouse;
       break;
 
     case 'display':
-      const display = await tryAndCatch(DisplayModel);
+      const display = await tryAndCatch(DisplayModel, id);
       result = display;
       break;
 

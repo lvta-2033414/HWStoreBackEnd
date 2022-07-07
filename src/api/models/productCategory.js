@@ -10,6 +10,9 @@ const CpuModel = mongoose.model('cpu', CpuSchema);
 // const CpuAmdSchema = new Schema({}, { collection: 'cpuAMD' });
 // const CpuAmdModel = mongoose.model('cpuAMD', CpuAmdSchema);
 
+const MainboardSchema = new Schema({}, { collection: 'main' });
+const MainboardModel = mongoose.model('main', MainboardSchema);
+
 const MainboardIntelSchema = new Schema({}, { collection: 'mainINTEL' });
 const MainboardIntelModel = mongoose.model('mainINTEL', MainboardIntelSchema);
 
@@ -37,12 +40,9 @@ const KeyboardMouseModel = mongoose.model('keyboardmouse', KeyboardMouseSchema);
 const DisplaySchema = new Schema({}, { collection: 'display' });
 const DisplayModel = mongoose.model('display', DisplaySchema);
 
-// CpuAmdModel,
-// CpuIntelModel,
 module.exports = {
   CpuModel,
-  MainboardAmdModel,
-  MainboardIntelModel,
+  MainboardModel,
   RamModel,
   VgaModel,
   DiskModel,
